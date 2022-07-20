@@ -2,6 +2,14 @@
   <img height="200" src="https://user-images.githubusercontent.com/35694200/179996504-0146bfca-e486-4c25-9329-263137b9c985.png" alt="cloudparse"/>
 </p>
 
+<p align="center">
+  <img src="https://github.com/danielTobon43/cloudparse/actions/workflows/ci.yml/badge.svg?branch=main" alt="travis"/>
+  <a href="https://github.com/danielTobon43/cloudparse/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="license"/>
+  </a>
+  <img src="https://img.shields.io/badge/version-0.2.0-blue.svg?cacheSeconds=2592000" alt="version"/>
+</p>
+
 ## Description
 Manage all your point cloud data in one place with cloudparse. An CMake library to handle point cloud into the Point Cloud Library.
 

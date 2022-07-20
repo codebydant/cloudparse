@@ -1,10 +1,19 @@
 cmake_minimum_required(VERSION 3.10)
 
 project(cloudparse
-    VERSION 0.1.0
+    VERSION 0.2.0
     DESCRIPTION "Cloud parse library for PCL"
     LANGUAGES CXX
 )
+
+option(BUILD_TESTING "Builds only the test executable." OFF)
+option(CODE_COVERAGE "Collect coverage from test library" OFF)
+
+include("${CMAKE_CURRENT_LIST_DIR}/cmake/color.cmake")
+include(ExternalProject)
+
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE STRING "Final install location")
+set(CMAKE_BUILD_TYPE_INIT "Release")
 
 find_package(PCL 1.8 REQUIRED QUIET COMPONENTS io)
 
@@ -23,6 +32,28 @@ add_library(${PROJECT_NAME} SHARED
     ${CMAKE_CURRENT_LIST_DIR}/src/parser.cpp
 )
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
+
+# #############################################################################
+# COMPILE UNITTESTS
+# #############################################################################
+if(BUILD_TESTING)
+    message("${BoldWhite} Testing enabled ${ColourReset}")
+    enable_testing()
+    add_subdirectory(external)
+    add_subdirectory(tests)
+
+    if(CODE_COVERAGE)
+        message("${BoldWhite} Coverage enabled ${ColourReset}")
+        include("${CMAKE_CURRENT_LIST_DIR}/cmake/CodeCoverage.cmake")
+        append_coverage_compiler_flags()
+        setup_target_for_coverage_lcov(NAME coverage EXECUTABLE ctest -j ${n_cores}
+            BASE_DIRECTORY ../coverage
+            DEPENDENCIES
+            testlib
+            testconcreteparses
+        )
+    endif()
+endif()
 
 # #############################################################################
 # LIBRARY PROPERTIES
@@ -49,7 +80,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PCL_IO_LIBRARIES})
 # #############################################################################
 # COMPILATION FLAGS
 # #############################################################################
-target_compile_options(${PROJECT_NAME} PUBLIC -Wno-cpp -mno-avx -mno-avx2)
+target_compile_options(${PROJECT_NAME} PRIVATE -Wno-cpp -mno-avx -mno-avx2)
 
 # #############################################################################
 # INSTALL DIRECTORY

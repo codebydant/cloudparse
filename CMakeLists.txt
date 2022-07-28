@@ -1,7 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
 
+set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE STRING "Final install location")
+set(CMAKE_BUILD_TYPE_INIT "Release")
+
 project(cloudparse
-    VERSION 0.2.0
+    VERSION 0.2.1
     DESCRIPTION "Cloud parse library for PCL"
     LANGUAGES CXX
 )
@@ -11,9 +14,6 @@ option(CODE_COVERAGE "Collect coverage from test library" OFF)
 
 include("${CMAKE_CURRENT_LIST_DIR}/cmake/color.cmake")
 include(ExternalProject)
-
-set(CMAKE_INSTALL_PREFIX "${CMAKE_BINARY_DIR}/install" CACHE STRING "Final install location")
-set(CMAKE_BUILD_TYPE_INIT "Release")
 
 find_package(PCL 1.8 REQUIRED QUIET COMPONENTS io)
 

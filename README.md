@@ -7,7 +7,7 @@
   <a href="https://github.com/danielTobon43/cloudparse/blob/main/LICENSE">
     <img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="license"/>
   </a>
-  <img src="https://img.shields.io/badge/version-0.2.0-blue.svg?cacheSeconds=2592000" alt="version"/>
+  <img src="https://img.shields.io/badge/version-0.2.1-blue.svg?cacheSeconds=2592000" alt="version"/>
 </p>
 
 ## Description
